@@ -4,10 +4,10 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class BoundingBox {
-    private final int x;
-    private final int y;
-    private final int width;
-    private final int height;
+    public final int x;
+    public final int y;
+    public final int width;
+    public final int height;
 
     public BoundingBox(int x, int y, int width, int height) {
         this.x = x;
