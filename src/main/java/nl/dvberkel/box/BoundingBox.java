@@ -30,6 +30,15 @@ public class BoundingBox {
         return new BoundingBox(minX, minY, maxX - minX, maxY - minY);
     }
 
+
+    public BoundingBox translateTo(int x, int y) {
+        return new BoundingBox(x, y, this.width, this.height);
+    }
+
+    public BoundingBox relativeTranslate(int dx, int dy) {
+        return translateTo(this.x + dx, this.y + dy);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
