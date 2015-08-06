@@ -4,6 +4,18 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class BoundingBox {
+    private static final BoundingBox EMPTY_BOUNDING_BOX = new BoundingBox(0, 0, 0, 0);
+
+    public static BoundingBox mergeAll(BoundingBox... boxes) {
+        if (boxes.length == 0) {
+            return EMPTY_BOUNDING_BOX;
+        } else if (boxes.length == 1) {
+            return boxes[0];
+        } else {
+            return boxes[0].merge(boxes);
+        }
+    }
+
     public final int x;
     public final int y;
     public final int width;

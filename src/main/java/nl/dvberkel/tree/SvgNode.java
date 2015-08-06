@@ -5,6 +5,8 @@ import nl.dvberkel.layout.Aligner;
 import nl.dvberkel.layout.HorizontalAligner;
 import nl.dvberkel.layout.VerticalAligner;
 
+import static nl.dvberkel.box.BoundingBox.mergeAll;
+
 public class SvgNode implements SvgTree {
     private final SvgTree left;
     private final SvgTree right;
@@ -22,11 +24,11 @@ public class SvgNode implements SvgTree {
         if (boundingBox == null) {
             Aligner horizontalAligner = new HorizontalAligner();
             BoundingBox[] alignedSubTrees = horizontalAligner.align(left.boundingBox(configuration), right.boundingBox(configuration));
-            BoundingBox mergedBoundingBox = alignedSubTrees[0].merge(alignedSubTrees[1]);
+            BoundingBox mergedBoundingBox = mergeAll(alignedSubTrees);
             Aligner verticalAligner = new VerticalAligner();
             int size = 2 * (configuration.radius + configuration.padding);
             BoundingBox[] aligned = verticalAligner.align(new BoundingBox(0, 0, size, size), mergedBoundingBox);
-            boundingBox = aligned[0].merge(aligned[1]);
+            boundingBox = mergeAll(aligned);
         }
         return boundingBox;
     }
