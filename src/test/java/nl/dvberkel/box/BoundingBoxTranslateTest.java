@@ -41,4 +41,13 @@ public class BoundingBoxTranslateTest {
 
         assertThat(moved, is(new BoundingBox(original.x + dx, original.y + dy, original.width, original.height)));
     }
+
+    @Test
+    public void shouldTranslateByTranslationRelativeToOriginalPosition() {
+        Translation translation = new Translation(5, 3);
+
+        BoundingBox moved = original.translateBy(translation);
+
+        assertThat(moved, is(new BoundingBox(original.x + translation.dx, original.y + translation.dy, original.width, original.height)));
+    }
 }

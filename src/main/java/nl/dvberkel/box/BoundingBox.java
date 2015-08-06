@@ -49,6 +49,11 @@ public class BoundingBox {
         return translateTo(this.x + dx, this.y + dy);
     }
 
+
+    public BoundingBox translateBy(Translation translation) {
+        return translateBy(translation.dx, translation.dy);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
