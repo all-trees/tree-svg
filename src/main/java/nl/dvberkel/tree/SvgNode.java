@@ -13,7 +13,8 @@ public class SvgNode extends SvgLeaf implements SvgTree {
     private final SvgTree left;
     private final SvgTree right;
 
-    public SvgNode(SvgTree left, SvgTree right) {
+    public SvgNode(Configuration configuration, SvgTree left, SvgTree right) {
+        super(configuration);
         if (left == null) { throw new IllegalArgumentException("left should not be null"); }
         if (right == null) { throw new IllegalArgumentException("right should not be null"); }
         this.left = left;
@@ -21,9 +22,9 @@ public class SvgNode extends SvgLeaf implements SvgTree {
     }
 
     @Override
-    protected BoundingBox defaultBoundingBox(Configuration configuration) {
-        BoundingBox leafBoundingBox = super.defaultBoundingBox(configuration);
-        BoundingBox[] alignedSubTrees = HORIZONTAL_ALIGNER.align(left.boundingBox(configuration), right.boundingBox(configuration));
+    protected BoundingBox defaultBoundingBox() {
+        BoundingBox leafBoundingBox = super.defaultBoundingBox();
+        BoundingBox[] alignedSubTrees = HORIZONTAL_ALIGNER.align(left.boundingBox(), right.boundingBox());
         BoundingBox mergedBoundingBox = mergeAll(alignedSubTrees);
         BoundingBox[] aligned = VERTICAL_ALIGNER.align(leafBoundingBox, mergedBoundingBox);
         return mergeAll(aligned);

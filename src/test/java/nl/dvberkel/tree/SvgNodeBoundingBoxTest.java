@@ -31,12 +31,12 @@ public class SvgNodeBoundingBoxTest {
     @Test
     public void shouldReturnBoundingBoxThatFitsNodeAndTheSubtrees() {
         SvgTree left = mock(SvgTree.class);
-        when(left.boundingBox(configuration)).thenReturn(leftBoundingBox);
+        when(left.boundingBox()).thenReturn(leftBoundingBox);
         SvgTree right = mock(SvgTree.class);
-        when(right.boundingBox(configuration)).thenReturn(rightBoundingBox);
-        SvgTree tree = new SvgNode(left, right);
+        when(right.boundingBox()).thenReturn(rightBoundingBox);
+        SvgTree tree = new SvgNode(configuration, left, right);
 
-        BoundingBox box = tree.boundingBox(configuration);
+        BoundingBox box = tree.boundingBox();
 
         assertThat(box, is(expectedBoundingBox));
     }

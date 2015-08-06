@@ -26,9 +26,9 @@ public class SvgLeafBoundingBoxTest {
 
     @Test
     public void shouldReturnBoundingBoxTightAroundACircleWithCertainRadiusAndWithPadding() {
-        SvgTree tree = new SvgLeaf();
+        SvgTree tree = new SvgLeaf(configuration);
 
-        BoundingBox box = tree.boundingBox(configuration);
+        BoundingBox box = tree.boundingBox();
 
         assertThat(box, is(expectedBoundingBox));
     }
