@@ -9,8 +9,6 @@ public class BoundingBox {
     public static BoundingBox mergeAll(BoundingBox... boxes) {
         if (boxes.length == 0) {
             return EMPTY_BOUNDING_BOX;
-        } else if (boxes.length == 1) {
-            return boxes[0];
         } else {
             return boxes[0].merge(boxes);
         }
