@@ -8,6 +8,7 @@ import nl.dvberkel.layout.VerticalAligner;
 public class SvgNode implements SvgTree {
     private final SvgTree left;
     private final SvgTree right;
+    private BoundingBox boundingBox;
 
     public SvgNode(SvgTree left, SvgTree right) {
         if (left == null) { throw new IllegalArgumentException("left should not be null"); }
@@ -18,13 +19,16 @@ public class SvgNode implements SvgTree {
 
     @Override
     public BoundingBox boundingBox(Configuration configuration) {
-        Aligner horizontalAligner = new HorizontalAligner();
-        BoundingBox[] alignedSubTrees = horizontalAligner.align(left.boundingBox(configuration), right.boundingBox(configuration));
-        BoundingBox mergedBoundingBox = alignedSubTrees[0].merge(alignedSubTrees[1]);
-        Aligner verticalAligner = new VerticalAligner();
-        int size  = 2 * (configuration.radius + configuration.padding);
-        BoundingBox[] aligned = verticalAligner.align(new BoundingBox(0, 0, size, size), mergedBoundingBox);
-        return aligned[0].merge(aligned[1]);
+        if (boundingBox == null) {
+            Aligner horizontalAligner = new HorizontalAligner();
+            BoundingBox[] alignedSubTrees = horizontalAligner.align(left.boundingBox(configuration), right.boundingBox(configuration));
+            BoundingBox mergedBoundingBox = alignedSubTrees[0].merge(alignedSubTrees[1]);
+            Aligner verticalAligner = new VerticalAligner();
+            int size = 2 * (configuration.radius + configuration.padding);
+            BoundingBox[] aligned = verticalAligner.align(new BoundingBox(0, 0, size, size), mergedBoundingBox);
+            boundingBox = aligned[0].merge(aligned[1]);
+        }
+        return boundingBox;
     }
 
     @Override
