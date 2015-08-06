@@ -37,7 +37,7 @@ public class BoundingBoxTranslateTest {
     public void shouldTranslateToRelativeToOriginalPosition() {
         int dx = 3, dy = 5;
 
-        BoundingBox moved = original.relativeTranslate(dx, dy);
+        BoundingBox moved = original.translateBy(dx, dy);
 
         assertThat(moved, is(new BoundingBox(original.x + dx, original.y + dy, original.width, original.height)));
     }

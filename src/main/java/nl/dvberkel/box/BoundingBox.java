@@ -45,7 +45,7 @@ public class BoundingBox {
         return new BoundingBox(x, y, this.width, this.height);
     }
 
-    public BoundingBox relativeTranslate(int dx, int dy) {
+    public BoundingBox translateBy(int dx, int dy) {
         return translateTo(this.x + dx, this.y + dy);
     }
 
