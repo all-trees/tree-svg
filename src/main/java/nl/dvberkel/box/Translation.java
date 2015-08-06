@@ -8,4 +8,23 @@ public class Translation {
         this.dx = dx;
         this.dy = dy;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Translation that = (Translation) o;
+
+        if (dx != that.dx) return false;
+        return dy == that.dy;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = dx;
+        result = 31 * result + dy;
+        return result;
+    }
 }

@@ -1,5 +1,7 @@
 package nl.dvberkel.box;
 
+
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -52,6 +54,10 @@ public class BoundingBox {
 
     public BoundingBox translateBy(Translation translation) {
         return translateBy(translation.dx, translation.dy);
+    }
+
+    public Translation to(BoundingBox other) {
+        return new Translation(other.x - this.x, other.y - this.y);
     }
 
     @Override
