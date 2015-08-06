@@ -24,13 +24,18 @@ public class SvgNode implements SvgTree {
     @Override
     public BoundingBox boundingBox(Configuration configuration) {
         if (boundingBox == null) {
-            BoundingBox[] alignedSubTrees = HORIZONTAL_ALIGNER.align(left.boundingBox(configuration), right.boundingBox(configuration));
-            BoundingBox mergedBoundingBox = mergeAll(alignedSubTrees);
-            int size = 2 * (configuration.radius + configuration.padding);
-            BoundingBox[] aligned = VERTICAL_ALIGNER.align(new BoundingBox(0, 0, size, size), mergedBoundingBox);
-            boundingBox = mergeAll(aligned);
+            this.boundingBox = defaultBoundingBox(configuration);
         }
         return boundingBox;
+    }
+
+    private BoundingBox defaultBoundingBox(Configuration configuration) {
+        BoundingBox[] alignedSubTrees = HORIZONTAL_ALIGNER.align(left.boundingBox(configuration), right.boundingBox(configuration));
+        BoundingBox mergedBoundingBox = mergeAll(alignedSubTrees);
+        int size = 2 * (configuration.radius + configuration.padding);
+        BoundingBox leafBoundingBox = new BoundingBox(0, 0, size, size);
+        BoundingBox[] aligned = VERTICAL_ALIGNER.align(leafBoundingBox, mergedBoundingBox);
+        return mergeAll(aligned);
     }
 
     @Override

@@ -8,10 +8,14 @@ public class SvgLeaf implements SvgTree {
     @Override
     public BoundingBox boundingBox(Configuration configuration) {
         if (boundingBox == null) {
-            int size = 2 * (configuration.radius + configuration.padding);
-            boundingBox = new BoundingBox(0, 0, size, size);
+            this.boundingBox = defaultBoundingBox(configuration);
         }
         return boundingBox;
+    }
+
+    private BoundingBox defaultBoundingBox(Configuration configuration) {
+        int size = 2 * (configuration.radius + configuration.padding);
+        return new BoundingBox(0, 0, size, size);
     }
 
     @Override
