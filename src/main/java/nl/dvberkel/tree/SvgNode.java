@@ -25,8 +25,17 @@ public class SvgNode extends SvgLeaf implements SvgTree {
     @Override
     protected BoundingBox defaultBoundingBox() {
         BoundingBox leafBoundingBox = super.defaultBoundingBox();
-        BoundingBox[] alignedSubTrees = HORIZONTAL_ALIGNER.align(left.boundingBox(), right.boundingBox());
-        BoundingBox mergedBoundingBox = mergeAll(alignedSubTrees);
+        BoundingBox[] subBoundingBoxes = new BoundingBox[]{ left.boundingBox(), right.boundingBox() };
+        BoundingBox[] alignedSubBoundingBoxes = HORIZONTAL_ALIGNER.align(subBoundingBoxes);
+
+        Translation[] translations = new Translation[subBoundingBoxes.length];
+        for (int index = 0; index < subBoundingBoxes.length; index++){
+            translations[index] = subBoundingBoxes[index].to(alignedSubBoundingBoxes[index]);
+        }
+        left.translateBy(translations[0]);
+        right.translateBy(translations[1]);
+
+        BoundingBox mergedBoundingBox = mergeAll(alignedSubBoundingBoxes);
         BoundingBox[] aligned = VERTICAL_ALIGNER.align(leafBoundingBox, mergedBoundingBox);
         return mergeAll(aligned);
     }
