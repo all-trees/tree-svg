@@ -1,6 +1,7 @@
 package nl.dvberkel.tree;
 
 import nl.dvberkel.box.BoundingBox;
+import nl.dvberkel.box.Translation;
 
 public class SvgLeaf implements SvgTree {
     private final Configuration configuration;
@@ -16,6 +17,11 @@ public class SvgLeaf implements SvgTree {
             this.boundingBox = defaultBoundingBox();
         }
         return boundingBox;
+    }
+
+    @Override
+    public void translateBy(Translation translation) {
+        boundingBox = boundingBox().translateBy(translation);
     }
 
     protected BoundingBox defaultBoundingBox() {

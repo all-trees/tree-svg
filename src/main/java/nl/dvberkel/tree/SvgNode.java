@@ -1,6 +1,7 @@
 package nl.dvberkel.tree;
 
 import nl.dvberkel.box.BoundingBox;
+import nl.dvberkel.box.Translation;
 import nl.dvberkel.layout.Aligner;
 import nl.dvberkel.layout.HorizontalAligner;
 import nl.dvberkel.layout.VerticalAligner;
@@ -28,6 +29,13 @@ public class SvgNode extends SvgLeaf implements SvgTree {
         BoundingBox mergedBoundingBox = mergeAll(alignedSubTrees);
         BoundingBox[] aligned = VERTICAL_ALIGNER.align(leafBoundingBox, mergedBoundingBox);
         return mergeAll(aligned);
+    }
+
+    @Override
+    public void translateBy(Translation translation) {
+        super.translateBy(translation);
+        left.translateBy(translation);
+        right.translateBy(translation);
     }
 
     @Override
