@@ -10,6 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <batik.version>1.8</batik.version>
     </properties>
 
     <dependencies>
@@ -17,6 +18,16 @@
             <groupId>nl.dvberkel</groupId>
             <artifactId>tree.domain</artifactId>
             <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-svg-dom</artifactId>
+            <version>${batik.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-anim</artifactId>
+            <version>${batik.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
