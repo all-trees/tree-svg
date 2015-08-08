@@ -42,7 +42,7 @@ transformer.transform(new DOMSource(root), result);
 
 Put together it will produce the following image
 
-![Binary Tree](https://raw.githubusercontent.com/all-trees/tree-svg/8c940b6ccd8a5c7d501611dd81fbbbde1a8ae8a3/src/main/resources/example.svg)
+![Binary Tree](https://github.com/all-trees/tree-svg/blob/master/src/main/resources/example.svg)
 
 [svg]: https://en.wikipedia.org/wiki/Scalable_Vector_Graphics
 [dyck]: https://en.wikipedia.org/wiki/Dyck_language
