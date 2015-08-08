@@ -59,7 +59,7 @@ public class SvgNodeBoundingBoxTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data(){
         Collection<Object[]> data = new ArrayList<Object[]>();
-        data.add(new Object[]{ configuration().withRadius(1).withPadding(0), new BoundingBox(0, 0, 1, 1), new BoundingBox(0, 0, 1, 1), new BoundingBox(0, 0, 2, 3)});
+        data.add(new Object[]{ configuration().withRadius(1).withPadding(0), new BoundingBox(0, 0, 2, 2), new BoundingBox(0, 0, 2, 2), new BoundingBox(0, 0, 4, 4)});
         return data;
     }
 }
