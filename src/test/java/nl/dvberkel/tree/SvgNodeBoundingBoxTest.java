@@ -13,9 +13,7 @@ import static nl.dvberkel.tree.Configuration.configuration;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(Parameterized.class)
 public class SvgNodeBoundingBoxTest {
@@ -54,8 +52,8 @@ public class SvgNodeBoundingBoxTest {
 
         BoundingBox box = tree.boundingBox();
 
-        verify(left).translateBy(any(Translation.class));
-        verify(right).translateBy(any(Translation.class));
+        verify(left, atLeastOnce()).translateBy(any(Translation.class));
+        verify(right, atLeastOnce()).translateBy(any(Translation.class));
     }
 
     @Parameterized.Parameters
