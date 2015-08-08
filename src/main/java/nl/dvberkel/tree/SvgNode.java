@@ -25,7 +25,7 @@ public class SvgNode extends SvgLeaf implements SvgTree {
     @Override
     protected BoundingBox defaultBoundingBox() {
         BoundingBox leafBoundingBox = super.defaultBoundingBox();
-        BoundingBox[] subBoundingBoxes = new BoundingBox[]{ left.boundingBox(), right.boundingBox() };
+        BoundingBox[] subBoundingBoxes = new BoundingBox[]{ left().boundingBox(), right().boundingBox() };
         BoundingBox[] alignedSubBoundingBoxes = HORIZONTAL_ALIGNER.align(subBoundingBoxes);
 
         Translation[] translations = new Translation[subBoundingBoxes.length];
@@ -52,8 +52,16 @@ public class SvgNode extends SvgLeaf implements SvgTree {
     @Override
     public void translateBy(Translation translation) {
         super.translateBy(translation);
-        left.translateBy(translation);
-        right.translateBy(translation);
+        left().translateBy(translation);
+        right().translateBy(translation);
+    }
+
+    public SvgTree left() {
+        return left;
+    }
+
+    public SvgTree right() {
+        return right;
     }
 
     @Override
@@ -63,15 +71,15 @@ public class SvgNode extends SvgLeaf implements SvgTree {
 
         SvgNode svgNode = (SvgNode) o;
 
-        if (!left.equals(svgNode.left)) return false;
-        return right.equals(svgNode.right);
+        if (!left.equals(svgNode.left())) return false;
+        return right.equals(svgNode.right());
 
     }
 
     @Override
     public int hashCode() {
-        int result = left.hashCode();
-        result = 31 * result + right.hashCode();
+        int result = left().hashCode();
+        result = 31 * result + right().hashCode();
         return result;
     }
 }
