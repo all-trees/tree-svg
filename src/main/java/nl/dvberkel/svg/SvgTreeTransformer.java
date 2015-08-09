@@ -50,7 +50,7 @@ public class SvgTreeTransformer {
             root.appendChild(rightEdge);
             append(document, root, node.left());
             append(document, root, node.right());
-            Element nodeSvg = createLeafSvg(document, node);
+            Element nodeSvg = createNodeSvg(document, node);
             root.appendChild(nodeSvg);
         } else {
             SvgLeaf leaf = (SvgLeaf) tree;
@@ -60,8 +60,13 @@ public class SvgTreeTransformer {
     }
 
     private Element createEdgeSvg(SVGDocument document, SvgTree parent, SvgTree child) {
-        Position parentPosition = leafPosition(parent.boundingBox());
-        Position childPosition = leafPosition(child.boundingBox());
+        Position parentPosition = nodePosition(parent.boundingBox());
+        Position childPosition;
+        if (child instanceof SvgNode) {
+            childPosition = nodePosition(child.boundingBox());
+        } else {
+            childPosition = leafPosition(child.boundingBox());
+        }
         Element element = document.createElementNS(namespace, "line");
         element.setAttributeNS(null, "x1", Integer.toString(parentPosition.x));
         element.setAttributeNS(null, "y1", Integer.toString(parentPosition.y));
@@ -70,18 +75,28 @@ public class SvgTreeTransformer {
         return element;
     }
 
+    private Element createNodeSvg(SVGDocument document, SvgTree tree) {
+        return circle(document, nodePosition(tree.boundingBox()), configuration.nodeRadius);
+    }
 
-    private Element createLeafSvg(SVGDocument document, SvgTree tree) {
-        Position position = leafPosition(tree.boundingBox());
+    private Element circle(SVGDocument document, Position position, int radius) {
         Element element = document.createElementNS(namespace, "circle");
         element.setAttributeNS(null, "cx", Integer.toString(position.x));
         element.setAttributeNS(null, "cy", Integer.toString(position.y));
-        element.setAttributeNS(null, "r", Integer.toString(configuration.nodeRadius));
+        element.setAttributeNS(null, "r", Integer.toString(radius));
         return element;
     }
 
-    private Position leafPosition(BoundingBox box) {
+    private Element createLeafSvg(SVGDocument document, SvgTree tree) {
+        return circle(document, leafPosition(tree.boundingBox()), configuration.leafRadius);
+    }
+
+    private Position nodePosition(BoundingBox box) {
         return new Position(box.x + box.width/2, box.y + configuration.nodeRadius + configuration.padding);
+    }
+
+    private Position leafPosition(BoundingBox box) {
+        return new Position(box.x + box.width/2, box.y + configuration.leafRadius + configuration.padding);
     }
 }
 

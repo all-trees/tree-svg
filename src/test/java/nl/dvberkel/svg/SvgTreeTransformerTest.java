@@ -19,8 +19,11 @@ import static nl.dvberkel.tree.Configuration.configuration;
 import static org.apache.commons.io.IOUtils.copy;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class SvgTreeTransformerTest {
+    public static final String LEAF_SVG_PATHNAME = "src/test/resources/svg-tree-transformer-test.leaf.svg";
+    public static final String NODE_SVG_PATHNAME = "src/test/resources/svg-tree-transformer-test.node.svg";
     private Configuration configuration;
     private SvgTreeTransformer transformer;
     private String expectedLeafSvg;
@@ -28,13 +31,13 @@ public class SvgTreeTransformerTest {
 
     @Before
     public void createConfigurationAndSvgTreeTransformer(){
-        configuration = configuration().withNodeRadius(10).withPadding(3);
+        configuration = configuration().withNodeRadius(10).withLeafRadius(3).withPadding(3);
         transformer = new SvgTreeTransformer(configuration);
     }
 
     @Before
     public void readExpectedLeafSvgFromFile() throws IOException {
-        expectedLeafSvg = contentOf("src/test/resources/svg-tree-transformer-test.leaf.svg");
+        expectedLeafSvg = contentOf(LEAF_SVG_PATHNAME);
     }
 
     private String contentOf(String pathname) throws IOException {
@@ -47,7 +50,7 @@ public class SvgTreeTransformerTest {
 
     @Before
     public void readExpectedNodeSvgFromFile() throws IOException {
-        expectedNodeSvg = contentOf("src/test/resources/svg-tree-transformer-test.node.svg");
+        expectedNodeSvg = contentOf(NODE_SVG_PATHNAME);
     }
 
     @Test
@@ -56,7 +59,7 @@ public class SvgTreeTransformerTest {
 
         SVGSVGElement root = transformer.transform(tree);
 
-        assertThat(stringify(root), is(expectedLeafSvg));
+        assertThat(stringify(root, LEAF_SVG_PATHNAME), is(expectedLeafSvg));
     }
 
     @Test
@@ -65,7 +68,7 @@ public class SvgTreeTransformerTest {
 
         SVGSVGElement root = transformer.transform(tree);
 
-        assertThat(stringify(root), is(expectedNodeSvg));
+        assertThat(stringify(root, NODE_SVG_PATHNAME), is(expectedNodeSvg));
     }
 
     private String stringify(SVGSVGElement root) throws TransformerException, UnsupportedEncodingException {
@@ -73,6 +76,20 @@ public class SvgTreeTransformerTest {
         output(root, stream);
         return stream.toString("utf-8");
     }
+
+    private String stringify(SVGSVGElement root, String pathName) throws TransformerException, UnsupportedEncodingException {
+        try {
+            FileOutputStream outputStream = new FileOutputStream(new File(pathName));
+            output(root, outputStream);
+            outputStream.close();
+        } catch (IOException e) {
+            fail();
+        }
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        output(root, stream);
+        return stream.toString("utf-8");
+    }
+
 
     private void output(SVGSVGElement root, OutputStream stream) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance();

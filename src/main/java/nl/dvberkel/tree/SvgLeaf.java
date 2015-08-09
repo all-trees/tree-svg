@@ -4,7 +4,7 @@ import nl.dvberkel.box.BoundingBox;
 import nl.dvberkel.box.Translation;
 
 public class SvgLeaf implements SvgTree {
-    private final Configuration configuration;
+    protected final Configuration configuration;
     private BoundingBox boundingBox;
 
     public SvgLeaf(Configuration configuration) {
