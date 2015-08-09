@@ -28,7 +28,7 @@ public class SvgTreeTransformerTest {
 
     @Before
     public void createConfigurationAndSvgTreeTransformer(){
-        configuration = configuration().withRadius(10).withPadding(3);
+        configuration = configuration().withNodeRadius(10).withPadding(3);
         transformer = new SvgTreeTransformer(configuration);
     }
 

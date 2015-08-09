@@ -76,12 +76,12 @@ public class SvgTreeTransformer {
         Element element = document.createElementNS(namespace, "circle");
         element.setAttributeNS(null, "cx", Integer.toString(position.x));
         element.setAttributeNS(null, "cy", Integer.toString(position.y));
-        element.setAttributeNS(null, "r", Integer.toString(configuration.radius));
+        element.setAttributeNS(null, "r", Integer.toString(configuration.nodeRadius));
         return element;
     }
 
     private Position leafPosition(BoundingBox box) {
-        return new Position(box.x + box.width/2, box.y + configuration.radius + configuration.padding);
+        return new Position(box.x + box.width/2, box.y + configuration.nodeRadius + configuration.padding);
     }
 }
 

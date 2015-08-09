@@ -1,7 +1,6 @@
 package nl.dvberkel.tree;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.random;
 import static nl.dvberkel.tree.Configuration.configuration;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,8 +18,8 @@ public class SvgLeafBoundingBoxTest {
     @Before
     public void createConfiguration() {
         Random random = new Random();
-        configuration = configuration().withRadius(abs(random.nextInt())).withPadding(abs(random.nextInt()));
-        int expectedSize = 2 * (configuration.radius + configuration.padding);
+        configuration = configuration().withNodeRadius(abs(random.nextInt())).withPadding(abs(random.nextInt()));
+        int expectedSize = 2 * (configuration.nodeRadius + configuration.padding);
         expectedBoundingBox = new BoundingBox(0, 0, expectedSize, expectedSize);
     }
 

@@ -11,7 +11,8 @@ public class ConfigurationTest {
     public void shouldHaveDefaults(){
         Configuration configuration = configuration();
 
-        assertThat(configuration.radius, is(DEFAULT_RADIUS));
+        assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
         assertThat(configuration.stroke, is(DEFAULT_STROKE));
         assertThat(configuration.fill, is(DEFAULT_FILL));
@@ -19,11 +20,25 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void shouldBeAbleToSetRadius(){
+    public void shouldBeAbleToSetNodeRadius(){
         int expectedRadius = 5;
-        Configuration configuration = configuration().withRadius(expectedRadius);
+        Configuration configuration = configuration().withNodeRadius(expectedRadius);
 
-        assertThat(configuration.radius, is(expectedRadius));
+        assertThat(configuration.nodeRadius, is(expectedRadius));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
+        assertThat(configuration.padding, is(DEFAULT_PADDING));
+        assertThat(configuration.stroke, is(DEFAULT_STROKE));
+        assertThat(configuration.fill, is(DEFAULT_FILL));
+        assertThat(configuration.strokeWidth, is(DEFAULT_STROKE_WIDTH));
+    }
+
+    @Test
+    public void shouldBeAbleToSetLeafRadius(){
+        int expectedRadius = 5;
+        Configuration configuration = configuration().withLeafRadius(expectedRadius);
+
+        assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
+        assertThat(configuration.leafRadius, is(expectedRadius));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
         assertThat(configuration.stroke, is(DEFAULT_STROKE));
         assertThat(configuration.fill, is(DEFAULT_FILL));
@@ -35,7 +50,8 @@ public class ConfigurationTest {
         int expectedPadding = 8;
         Configuration configuration = configuration().withPadding(expectedPadding);
 
-        assertThat(configuration.radius, is(DEFAULT_RADIUS));
+        assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(expectedPadding));
         assertThat(configuration.stroke, is(DEFAULT_STROKE));
         assertThat(configuration.fill, is(DEFAULT_FILL));
@@ -47,7 +63,8 @@ public class ConfigurationTest {
         String expectedStroke = "green";
         Configuration configuration = configuration().withStroke(expectedStroke);
 
-        assertThat(configuration.radius, is(DEFAULT_RADIUS));
+        assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
         assertThat(configuration.stroke, is(expectedStroke));
         assertThat(configuration.fill, is(DEFAULT_FILL));
@@ -59,7 +76,8 @@ public class ConfigurationTest {
         String expectedFill = "red";
         Configuration configuration = configuration().withFill(expectedFill);
 
-        assertThat(configuration.radius, is(DEFAULT_RADIUS));
+        assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
         assertThat(configuration.stroke, is(DEFAULT_STROKE));
         assertThat(configuration.fill, is(expectedFill));
@@ -71,7 +89,8 @@ public class ConfigurationTest {
         int expectedStrokeWidth = 5;
         Configuration configuration = configuration().withStrokeWidth(expectedStrokeWidth);
 
-        assertThat(configuration.radius, is(DEFAULT_RADIUS));
+        assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
         assertThat(configuration.stroke, is(DEFAULT_STROKE));
         assertThat(configuration.fill, is(DEFAULT_FILL));
@@ -82,9 +101,10 @@ public class ConfigurationTest {
     public void shouldBeAbleToSetBothRadiusAndPadding(){
         int expectedRadius = 5;
         int expectedPadding = 8;
-        Configuration configuration = configuration().withRadius(expectedRadius).withPadding(expectedPadding);
+        Configuration configuration = configuration().withNodeRadius(expectedRadius).withPadding(expectedPadding);
 
-        assertThat(configuration.radius, is(expectedRadius));
+        assertThat(configuration.nodeRadius, is(expectedRadius));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(expectedPadding));
         assertThat(configuration.stroke, is(DEFAULT_STROKE));
         assertThat(configuration.fill, is(DEFAULT_FILL));

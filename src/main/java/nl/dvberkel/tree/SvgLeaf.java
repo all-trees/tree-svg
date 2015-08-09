@@ -25,7 +25,7 @@ public class SvgLeaf implements SvgTree {
     }
 
     protected BoundingBox defaultBoundingBox() {
-        int size = 2 * (configuration.radius + configuration.padding);
+        int size = 2 * (configuration.nodeRadius + configuration.padding);
         return new BoundingBox(0, 0, size, size);
     }
 
