@@ -1,8 +1,8 @@
 package nl.dvberkel.tree;
 
 public class Configuration {
-    public static final int DEFAULT_NODE_RADIUS = 1;
-    public static final int DEFAULT_LEAF_RADIUS = 0;
+    public static final int DEFAULT_NODE_RADIUS = 10;
+    public static final int DEFAULT_LEAF_RADIUS = 3;
     public static final int DEFAULT_PADDING = 0;
     public static final String DEFAULT_STROKE = "black";
     public static final String DEFAULT_FILL = "white";
