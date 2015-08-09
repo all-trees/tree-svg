@@ -17,7 +17,7 @@ all the subtrees. The `TreeTransformer` is configured with a `Configuration` tha
 the padding around each subtree.
 
 ```java
-Configuration configuration = configuration().withRadius(20).withPadding(5);
+Configuration configuration = configuration().withNodeRadius(20).withLeafRadius(3).withPadding(5);
 TreeTransformer treeTransformer = new TreeTransformer(configuration);
 SvgTree svgTree = treeTransformer.transform(tree);
 ```
