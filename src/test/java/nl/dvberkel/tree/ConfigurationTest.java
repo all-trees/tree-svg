@@ -1,5 +1,6 @@
 package nl.dvberkel.tree;
 
+import nl.dvberkel.layout.DenseLayouter;
 import org.junit.Test;
 
 import static nl.dvberkel.tree.Configuration.*;
@@ -11,6 +12,21 @@ public class ConfigurationTest {
     public void shouldHaveDefaults(){
         Configuration configuration = configuration();
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
+        assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
+        assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
+        assertThat(configuration.padding, is(DEFAULT_PADDING));
+        assertThat(configuration.stroke, is(DEFAULT_STROKE));
+        assertThat(configuration.fill, is(DEFAULT_FILL));
+        assertThat(configuration.strokeWidth, is(DEFAULT_STROKE_WIDTH));
+    }
+
+    @Test
+    public void shouldBeAbleToSetLayouter(){
+        DenseLayouter layouter = new DenseLayouter();
+        Configuration configuration = configuration().withLayouter(layouter);
+
+        assertThat(configuration.layouter, is(layouter));
         assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
         assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
@@ -24,6 +40,7 @@ public class ConfigurationTest {
         int expectedRadius = 5;
         Configuration configuration = configuration().withNodeRadius(expectedRadius);
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
         assertThat(configuration.nodeRadius, is(expectedRadius));
         assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
@@ -37,6 +54,7 @@ public class ConfigurationTest {
         int expectedRadius = 5;
         Configuration configuration = configuration().withLeafRadius(expectedRadius);
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
         assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
         assertThat(configuration.leafRadius, is(expectedRadius));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
@@ -50,6 +68,7 @@ public class ConfigurationTest {
         int expectedPadding = 8;
         Configuration configuration = configuration().withPadding(expectedPadding);
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
         assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
         assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(expectedPadding));
@@ -63,6 +82,7 @@ public class ConfigurationTest {
         String expectedStroke = "green";
         Configuration configuration = configuration().withStroke(expectedStroke);
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
         assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
         assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
@@ -76,6 +96,7 @@ public class ConfigurationTest {
         String expectedFill = "red";
         Configuration configuration = configuration().withFill(expectedFill);
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
         assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
         assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
@@ -89,6 +110,7 @@ public class ConfigurationTest {
         int expectedStrokeWidth = 5;
         Configuration configuration = configuration().withStrokeWidth(expectedStrokeWidth);
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
         assertThat(configuration.nodeRadius, is(DEFAULT_NODE_RADIUS));
         assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(DEFAULT_PADDING));
@@ -103,6 +125,7 @@ public class ConfigurationTest {
         int expectedPadding = 8;
         Configuration configuration = configuration().withNodeRadius(expectedRadius).withPadding(expectedPadding);
 
+        assertThat(configuration.layouter, is(DEFAULT_LAYOUTER));
         assertThat(configuration.nodeRadius, is(expectedRadius));
         assertThat(configuration.leafRadius, is(DEFAULT_LEAF_RADIUS));
         assertThat(configuration.padding, is(expectedPadding));

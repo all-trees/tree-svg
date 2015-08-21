@@ -7,8 +7,6 @@ import nl.dvberkel.layout.*;
 import static nl.dvberkel.box.BoundingBox.mergeAll;
 
 public class SvgNode extends SvgLeaf implements SvgTree {
-    private static final Aligner HORIZONTAL_ALIGNER = new HorizontalAligner();
-    private static final Aligner VERTICAL_ALIGNER = new VerticalAligner();
     private final SvgTree left;
     private final SvgTree right;
 
@@ -23,10 +21,9 @@ public class SvgNode extends SvgLeaf implements SvgTree {
     @Override
     protected BoundingBox defaultBoundingBox() {
         BoundingBox parent = super.defaultBoundingBox();
-        BoundingBox[] children = new BoundingBox[]{ left().boundingBox(), right().boundingBox() };
 
-        Layouter layouter = new DenseLayouter();
-        Translation[] translations = layouter.layout(parent, children);
+        Translation[] translations = configuration.layouter.layout(
+                parent, new BoundingBox[]{ left().boundingBox(), right().boundingBox() });
 
         left.translateBy(translations[0]);
         right.translateBy(translations[1]);
