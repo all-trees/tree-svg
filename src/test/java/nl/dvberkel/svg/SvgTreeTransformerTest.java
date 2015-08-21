@@ -59,7 +59,7 @@ public class SvgTreeTransformerTest {
 
         SVGSVGElement root = transformer.transform(tree);
 
-        assertThat(stringify(root, LEAF_SVG_PATHNAME), is(expectedLeafSvg));
+        assertThat(stringify(root), is(expectedLeafSvg));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class SvgTreeTransformerTest {
 
         SVGSVGElement root = transformer.transform(tree);
 
-        assertThat(stringify(root, NODE_SVG_PATHNAME), is(expectedNodeSvg));
+        assertThat(stringify(root), is(expectedNodeSvg));
     }
 
     private String stringify(SVGSVGElement root) throws TransformerException, UnsupportedEncodingException {
