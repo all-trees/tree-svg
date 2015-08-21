@@ -60,13 +60,8 @@ public class SvgTreeTransformer {
     }
 
     private Element createEdgeSvg(SVGDocument document, SvgTree parent, SvgTree child) {
-        Position parentPosition = nodePosition(parent.boundingBox());
-        Position childPosition;
-        if (child instanceof SvgNode) {
-            childPosition = nodePosition(child.boundingBox());
-        } else {
-            childPosition = leafPosition(child.boundingBox());
-        }
+        Position parentPosition = position(parent);
+        Position childPosition = position(child);
         Element element = document.createElementNS(namespace, "line");
         element.setAttributeNS(null, "x1", Integer.toString(parentPosition.x));
         element.setAttributeNS(null, "y1", Integer.toString(parentPosition.y));
@@ -76,7 +71,7 @@ public class SvgTreeTransformer {
     }
 
     private Element createNodeSvg(SVGDocument document, SvgTree tree) {
-        return circle(document, nodePosition(tree.boundingBox()), configuration.nodeRadius);
+        return circle(document, position(tree), configuration.nodeRadius);
     }
 
     private Element circle(SVGDocument document, Position position, int radius) {
@@ -88,7 +83,15 @@ public class SvgTreeTransformer {
     }
 
     private Element createLeafSvg(SVGDocument document, SvgTree tree) {
-        return circle(document, leafPosition(tree.boundingBox()), configuration.leafRadius);
+        return circle(document, position(tree), configuration.leafRadius);
+    }
+
+    private Position position(SvgTree tree) {
+        if (tree instanceof SvgNode) {
+            return nodePosition(tree.boundingBox());
+        } else {
+            return leafPosition(tree.boundingBox());
+        }
     }
 
     private Position nodePosition(BoundingBox box) {
