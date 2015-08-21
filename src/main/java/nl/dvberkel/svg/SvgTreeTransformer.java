@@ -88,17 +88,19 @@ public class SvgTreeTransformer {
 
     private Position position(SvgTree tree) {
         if (tree instanceof SvgNode) {
-            return nodePosition(tree.boundingBox());
+            return nodePosition((SvgNode) tree);
         } else {
-            return leafPosition(tree.boundingBox());
+            return leafPosition((SvgLeaf) tree);
         }
     }
 
-    private Position nodePosition(BoundingBox box) {
+    private Position nodePosition(SvgNode node) {
+        BoundingBox box = node.boundingBox();
         return new Position(box.x + box.width/2, box.y + configuration.nodeRadius + configuration.padding);
     }
 
-    private Position leafPosition(BoundingBox box) {
+    private Position leafPosition(SvgLeaf leaf) {
+        BoundingBox box = leaf.boundingBox();
         return new Position(box.x + box.width/2, box.y + configuration.leafRadius + configuration.padding);
     }
 }
