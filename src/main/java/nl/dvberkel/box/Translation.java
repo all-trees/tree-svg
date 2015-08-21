@@ -9,6 +9,10 @@ public class Translation {
         this.dy = dy;
     }
 
+    public Translation translateBy(Translation that) {
+        return new Translation(this.dx + that.dx, this.dy + that.dy);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
