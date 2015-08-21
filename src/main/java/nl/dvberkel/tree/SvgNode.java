@@ -45,7 +45,7 @@ public class SvgNode extends SvgLeaf implements SvgTree {
         left.translateBy(translations[0]);
         right.translateBy(translations[1]);
 
-        return mergeAll(alignedBoxes);
+        return mergeAll(parent, left.boundingBox(), right.boundingBox());
     }
 
     @Override

@@ -31,11 +31,7 @@ public class SvgNodeBoundingBoxTest {
 
     @Test
     public void shouldReturnBoundingBoxThatFitsNodeAndTheSubtrees() {
-        SvgTree left = mock(SvgTree.class);
-        when(left.boundingBox()).thenReturn(leftBoundingBox);
-        SvgTree right = mock(SvgTree.class);
-        when(right.boundingBox()).thenReturn(rightBoundingBox);
-        SvgTree tree = new SvgNode(configuration, left, right);
+        SvgTree tree = new SvgNode(configuration, new SvgLeaf(configuration), new SvgLeaf(configuration));
 
         BoundingBox box = tree.boundingBox();
 
@@ -52,8 +48,8 @@ public class SvgNodeBoundingBoxTest {
 
         BoundingBox box = tree.boundingBox();
 
-        verify(left, atLeastOnce()).translateBy(any(Translation.class));
-        verify(right, atLeastOnce()).translateBy(any(Translation.class));
+        verify(left).translateBy(any(Translation.class));
+        verify(right).translateBy(any(Translation.class));
     }
 
     @Parameterized.Parameters
