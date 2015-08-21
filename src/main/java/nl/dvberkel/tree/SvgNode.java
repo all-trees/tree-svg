@@ -2,9 +2,7 @@ package nl.dvberkel.tree;
 
 import nl.dvberkel.box.BoundingBox;
 import nl.dvberkel.box.Translation;
-import nl.dvberkel.layout.Aligner;
-import nl.dvberkel.layout.HorizontalAligner;
-import nl.dvberkel.layout.VerticalAligner;
+import nl.dvberkel.layout.*;
 
 import static nl.dvberkel.box.BoundingBox.mergeAll;
 
@@ -26,21 +24,9 @@ public class SvgNode extends SvgLeaf implements SvgTree {
     protected BoundingBox defaultBoundingBox() {
         BoundingBox parent = super.defaultBoundingBox();
         BoundingBox[] children = new BoundingBox[]{ left().boundingBox(), right().boundingBox() };
-        BoundingBox[] alignedSubBoundingBoxes = HORIZONTAL_ALIGNER.align(children);
 
-        Translation[] translations = new Translation[]{ new Translation(0, 0), new Translation(0, 0) };
-
-        for (int index = 0; index < children.length; index++){
-            translations[index] = translations[index].translateBy(children[index].to(alignedSubBoundingBoxes[index]));
-        }
-
-        BoundingBox mergedBoundingBox = mergeAll(alignedSubBoundingBoxes);
-        BoundingBox[] boxes = new BoundingBox[] { parent, mergedBoundingBox };
-        BoundingBox[] alignedBoxes = VERTICAL_ALIGNER.align(parent, mergedBoundingBox);
-
-        for (int index = 0; index < translations.length; index++) {
-            translations[index] = translations[index].translateBy(boxes[1].to(alignedBoxes[1]));
-        }
+        Layouter layouter = new DenseLayouter();
+        Translation[] translations = layouter.layout(parent, children);
 
         left.translateBy(translations[0]);
         right.translateBy(translations[1]);
