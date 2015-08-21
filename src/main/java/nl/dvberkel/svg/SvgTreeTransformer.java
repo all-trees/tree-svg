@@ -96,12 +96,14 @@ public class SvgTreeTransformer {
 
     private Position nodePosition(SvgNode node) {
         BoundingBox box = node.boundingBox();
-        return new Position(box.x + box.width/2, box.y + configuration.nodeRadius + configuration.padding);
+        Position left = position(node.left());
+        Position right = position(node.right());
+        return new Position((left.x + right.x)/2, box.y + configuration.nodeRadius + configuration.padding);
     }
 
     private Position leafPosition(SvgLeaf leaf) {
         BoundingBox box = leaf.boundingBox();
-        return new Position(box.x + box.width/2, box.y + configuration.leafRadius + configuration.padding);
+        return new Position(box.x + box.width/2, box.y + configuration.nodeRadius + configuration.padding);
     }
 }
 
