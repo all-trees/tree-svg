@@ -28,23 +28,22 @@ public class SvgNode extends SvgLeaf implements SvgTree {
         BoundingBox[] subBoundingBoxes = new BoundingBox[]{ left().boundingBox(), right().boundingBox() };
         BoundingBox[] alignedSubBoundingBoxes = HORIZONTAL_ALIGNER.align(subBoundingBoxes);
 
-        Translation[] translations = new Translation[subBoundingBoxes.length];
+        Translation[] horizontalTranslations = new Translation[subBoundingBoxes.length];
         for (int index = 0; index < subBoundingBoxes.length; index++){
-            translations[index] = subBoundingBoxes[index].to(alignedSubBoundingBoxes[index]);
+            horizontalTranslations[index] = subBoundingBoxes[index].to(alignedSubBoundingBoxes[index]);
         }
-        left.translateBy(translations[0]);
-        right.translateBy(translations[1]);
 
         BoundingBox mergedBoundingBox = mergeAll(alignedSubBoundingBoxes);
         BoundingBox[] boxes = new BoundingBox[] { leafBoundingBox, mergedBoundingBox };
         BoundingBox[] alignedBoxes = VERTICAL_ALIGNER.align(leafBoundingBox, mergedBoundingBox);
 
-        translations = new Translation[alignedBoxes.length];
+        Translation[] verticalTranslations = new Translation[alignedBoxes.length];
         for (int index = 0; index < alignedBoxes.length; index++){
-            translations[index] = boxes[index].to(alignedBoxes[index]);
+            verticalTranslations[index] = boxes[index].to(alignedBoxes[index]);
         }
-        left.translateBy(translations[1]);
-        right.translateBy(translations[1]);
+
+        left.translateBy(horizontalTranslations[0].translateBy(verticalTranslations[1]));
+        right.translateBy(horizontalTranslations[1].translateBy(verticalTranslations[1]));
 
         return mergeAll(alignedBoxes);
     }
