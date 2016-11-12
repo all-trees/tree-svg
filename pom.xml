@@ -17,7 +17,7 @@
         <dependency>
             <groupId>nl.dvberkel</groupId>
             <artifactId>tree.domain</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
@@ -63,4 +63,11 @@
         </plugins>
     </build>
 
+    <repositories>
+      <repository>
+        <id>ossrh</id>
+        <name>Sonatype Open Source Repository</name>
+        <url>https://oss.sonatype.org/content/groups/public</url>
+      </repository>
+    </repositories>
 </project>
